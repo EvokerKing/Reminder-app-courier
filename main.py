@@ -11,7 +11,7 @@ def eventLayout(name: str, time: datetime.datetime, email: str, phone: str) -> l
     return [name, str(time.date()), str(time.time()), email, phone]
 
 
-def newReminder(NAME: str, TIME: str, EMAIL: str, PHONE: str) -> None:
+def newReminder(NAME: str, TIME: datetime.datetime, EMAIL: str, PHONE: str) -> None:
     token = secrets.token_hex(16)
     client.profiles.add(
         token,
@@ -100,7 +100,7 @@ while True:
             values['-EMAIL-'],
             values['-PHONE-']
         )
-        newReminder(values['-NAME-'], 'null', values['-EMAIL-'], values['-PHONE-'])
+        newReminder(values['-NAME-'], datetime.datetime(int(dateinfo[2]), int(dateinfo[0]), int(dateinfo[1]), int(values['-HOUR-']), int(values['-MINUTE-']), int(values['-SECOND-'])), values['-EMAIL-'], values['-PHONE-'])
         obj['items'].append(eventlayout)
         win['-TABLE-'].update(values=obj['items'])
     else:
